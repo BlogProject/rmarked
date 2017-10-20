@@ -1,0 +1,27 @@
+{
+  "name": "rmarked",
+  "version": "1.0.0",
+  "description": "拓展marked给我自己用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markdown"
+  ],
+  "author": "rainboy",
+  "license": "MIT",
+  "dependencies": {
+    "katex": "^0.9.0-alpha1",
+    "marked": "^0.3.6"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlogProject/rmarked.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BlogProject/rmarked/issues"
+  },
+  "homepage": "https://github.com/BlogProject/rmarked#readme"
+}
