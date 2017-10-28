@@ -1,6 +1,7 @@
 var marked  = require('marked')
 var katex = require('katex')
 
+
 var editormd = {};
 editormd.init = function(markdownToC,options){
     var self = editormd;
