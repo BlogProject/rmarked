@@ -15,7 +15,7 @@ twemoji.parse = function(icon_name){
 		return imageSoruce(twemoji_keywords[icon_name],this.options)
 	}
 	else {
-		return "http://rainboy.coding.me/twemoji_cheat_sheet/404.jpg"
+		return icon_name
 	}
 }
 

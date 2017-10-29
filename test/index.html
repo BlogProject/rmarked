@@ -269,6 +269,16 @@ Content Cell  | Content Cell
                 
 ----
 
+## 代码
+
+```c
+#include &lt;cstdio&gt;
+int main(){
+  printf("hello world");
+  return 0;
+}
+```
+
 #### 特殊符号 HTML Entities Codes
 
 &copy; &  &uml; &trade; &iexcl; &pound;
@@ -292,7 +302,7 @@ X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
 - [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
 - [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
     - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
-    - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
+    - [ ] :information_desk_person::skin-tone-4: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
  
 #### 反斜杠 Escape
 
@@ -346,29 +356,6 @@ f(x) = \int_{-\infty}^\infty
 
 [========]
 
-### 绘制流程图 Flowchart
-
-```flow
-st=>start: 用户登陆
-op=>operation: 登陆操作
-cond=>condition: 登陆成功 Yes or No?
-e=>end: 进入后台
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
-
-[========]
-                    
-### 绘制序列图 Sequence Diagram
-                    
-```seq
-Andrew->China: Says Hello 
-Note right of China: China thinks\nabout it 
-China-->Andrew: How are you? 
-Andrew->>China: I am good thanks!
-```
 ### End
     </div>
 

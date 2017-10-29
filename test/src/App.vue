@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <textarea :value="input" @input="update"></textarea>
-    <div v-html="compiledMarked"> </div>
+    <div class="markdown-body" v-html="compiledMarked"> </div>
   </div>
 </template>
 
 <script>
-var rmarked = require("../../index.js")
+var rmarked = require("../../index.js")()
 export default {
   name: 'app',
   data () {

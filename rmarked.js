@@ -1,5 +1,7 @@
 var marked  = require('marked')
 var katex = require('katex')
+var twemoji = require("./twemoji.js")
+var hljs = require("highlight.js")
 
 
 var editormd = {};
@@ -27,6 +29,10 @@ function unescape(html) {
     .replace(/&amp;/g, '&')
     .replace(/<\/?em>/g,'_')
 }
+
+
+//增加功能 
+window.clipboardCopy = require('./clipbordCopy.js')
 
 
 /* 增加 extend */
@@ -92,24 +98,13 @@ editormd.classNames  = {
 
 editormd.defaultLang =  'cpp';
 
-editormd.emoji     = {
-    path  : "http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/",
-    ext   : ".png"
-};
-
-// Twitter Emoji (Twemoji)  graphics files url path    
-editormd.twemoji = {
-    path : "http://twemoji.maxcdn.com/36x36/",
-    ext  : ".png"
-};
 
 editormd.regexs = {
     atLink        : /@(\w+)/g,
     email         : /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
     emailLink     : /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
-    emoji         : /:([\w\+-]+):/g,
+    emoji         : /:([\w\+-]+:{0,2}[\w\+-]+):/g,
     emojiDatetime : /(\d{2}:\d{2}:\d{2})/g,
-    twemoji       : /:(tw-([\w]+)-?(\w+)?):/g,
     fontAwesome   : /:(fa-([\w]+)(-(\w+)){0,}):/g,
     editormdLogo  : /:(editormd-logo-?(\w+)?):/g,
     pageBreak     : /^\[[=]{8,}\]$/,
@@ -120,13 +115,13 @@ editormd.regexs = {
 var trim = function(str) {
     return (!String.prototype.trim) ? str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "") : str.trim();
 };
-    
+
 editormd.trim = trim;
 
     /**
      * 自定义marked的解析器
      * Custom Marked renderer rules
-     * 
+     *
      * @param   {Array}    markdownToC     传入用于接收TOC的数组
      * @returns {Renderer} markedRenderer  返回marked的Renderer自定义对象
      */
@@ -135,12 +130,13 @@ editormd.markedRenderer = function(markdownToC, options) {
     var defaults = {
         toc                  : true,           // Table of contents
         tocm                 : false,
-        tocStartLevel        : 1,              // Said from H1 to create ToC  
+        tocStartLevel        : 1,              // Said from H1 to create ToC
         pageBreak            : true,
         atLink               : true,           // for @link
         emailLink            : true,           // for mail address auto link
         taskList             : true,          // Enable Github Flavored Markdown task lists
         emoji                : true,          // :emoji: , Support Twemoji, fontAwesome, Editor.md logo emojis.
+        codeCopy             : true,          // 开启代码复制支持
         tex                  : true,          // TeX(LaTeX), based on KaTeX
         flowChart            : true,          // flowChart.js only support IE9+
         sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
@@ -152,17 +148,16 @@ editormd.markedRenderer = function(markdownToC, options) {
     var emojiReg        = regexs.emoji;
     var emailReg        = regexs.email;
     var emailLinkReg    = regexs.emailLink;
-    var twemojiReg      = regexs.twemoji;
     var faIconReg       = regexs.fontAwesome;
     var editormdLogoReg = regexs.editormdLogo;
     var pageBreakReg    = regexs.pageBreak;
     var videoReg        = regexs.video;
-    
+
     markdownToC         = markdownToC || [];
     var markedRenderer= new marked.Renderer();
 
     markedRenderer.emoji = function(text) {
-        text = text.replace(editormd.regexs.emojiDatetime, function($1) {           
+        text = text.replace(editormd.regexs.emojiDatetime, function($1) {
             return $1.replace(/:/g, "&#58;");
         });
 
@@ -173,55 +168,21 @@ editormd.markedRenderer = function(markdownToC, options) {
         }
 
         for (var i = 0, len = matchs.length; i < len; i++)
-        {            
+        {
             if (matchs[i] === ":+1:") {
                 matchs[i] = ":\\+1:";
             }
 
             text = text.replace(new RegExp(matchs[i]), function($1, $2){
-                var faMatchs = $1.match(faIconReg);
-                var name     = $1.replace(/:/g, "");
+              var name = $1
 
-                if (faMatchs)
-                {                        
-                    for (var fa = 0, len1 = faMatchs.length; fa < len1; fa++)
-                    {
-                        var faName = faMatchs[fa].replace(/:/g, "");
+              let _name = name.slice(1)
+              _name = _name.slice(0,-1)
 
-                        return "<i class=\"fa " + faName + " fa-emoji\" title=\"" + faName.replace("fa-", "") + "\"></i>";
-                    }
-                }
-                else
-                {
-                    var emdlogoMathcs = $1.match(editormdLogoReg);
-                    var twemojiMatchs = $1.match(twemojiReg);
+              let uri = twemoji.parse(name)
 
-                    if (emdlogoMathcs)                                        
-                    {                            
-                        for (var x = 0, len2 = emdlogoMathcs.length; x < len2; x++)
-                        {
-                            var logoName = emdlogoMathcs[x].replace(/:/g, "");
-                            return "<i class=\"" + logoName + "\" title=\"Editor.md logo (" + logoName + ")\"></i>";
-                        }
-                    }
-                    else if (twemojiMatchs) 
-                    {
-                        for (var t = 0, len3 = twemojiMatchs.length; t < len3; t++)
-                        {
-                            var twe = twemojiMatchs[t].replace(/:/g, "").replace("tw-", "");
-                            var lllink =  "<img src=\"" + editormd.twemoji.path + twe + editormd.twemoji.ext + "\" title=\"twemoji-" + twe + "\" alt=\"twemoji-" + twe + "\" class=\"emoji twemoji\" />";
-                            return lllink;
-                        }
-                    }
-                    else
-                    {
-                        var src = (name === "+1") ? "plus1" : name;
-                        src     = (src === "black_large_square") ? "black_square" : src;
-                        src     = (src === "moon") ? "waxing_gibbous_moon" : src;
-
-                        return "<img src=\"" + editormd.emoji.path + src + editormd.emoji.ext + "\" class=\"emoji\" title=\"&#58;" + name + "&#58;\" alt=\"&#58;" + name + "&#58;\" />";
-                    }
-                }
+              if(uri !== name)
+                return "<img src=\"" + uri + "\" class=\"emoji\" title=\"&#58;" + _name + "&#58;\" alt=\"&#58;" + _name + "&#58;\" />";
             });
         }
 
@@ -232,8 +193,8 @@ editormd.markedRenderer = function(markdownToC, options) {
     markedRenderer.atLink = function(text) {
 
         if (atLinkReg.test(text))
-        { 
-            if (settings.atLink) 
+        {
+            if (settings.atLink)
             {
                 text = text.replace(emailReg, function($1, $2, $3, $4) {
                     return $1.replace(/@/g, "_#_&#64;_#_");
@@ -299,7 +260,7 @@ editormd.markedRenderer = function(markdownToC, options) {
         var hasLinkReg     = /\s*\<a\s*href\=\"(.*)\"\s*([^\>]*)\>(.*)\<\/a\>\s*/;
         var getLinkTextReg = /\s*\<a\s*([^\>]+)\>([^\>]*)\<\/a\>\s*/g;
 
-        if (hasLinkReg.test(text)) 
+        if (hasLinkReg.test(text))
         {
             var tempText = [];
             text         = text.split(/\<a\s*([^\>]+)\>([^\>]*)\<\/a\>/);
@@ -353,20 +314,20 @@ editormd.markedRenderer = function(markdownToC, options) {
         var isToC = false;
         var isToCMenu       = /^\[TOCM\]$/.test(text);
 
-        if (!isTeXLine && isTeXInline) 
+        if (!isTeXLine && isTeXInline)
         {
             text = text.replace(/(\$\$([^\$]*)\$\$)+/g, function($1, $2) {
                 var m_code = $2.replace(/\$/g, "");
                 //console.log(m_code)
                 m_code = unescape(m_code);
-                return "<span class=\"" + editormd.classNames.tex + "\">" + 
+                return "<span class=\"" + editormd.classNames.tex + "\">" +
                 katex.renderToString(m_code,{
                   throwOnError:false,
                   errorColor:"#f00"
-                }) + 
+                }) +
                 "</span>";
             });
-        } 
+        }
         else if(isTeXLine){
                 //console.log(text)
                 text = unescape(text.replace(/\$/g, ""))
@@ -385,17 +346,9 @@ editormd.markedRenderer = function(markdownToC, options) {
     };
 
 
-    markedRenderer.code = function (code, lang, escaped) { 
+    markedRenderer.code = function (code, lang, escaped) {
 
-        if (lang === "seq" || lang === "sequence")
-        {
-            return "<div class=\"sequence-diagram\">" + code + "</div>";
-        } 
-        else if ( lang === "flow")
-        {
-            return "<div class=\"flowchart\">" + code + "</div>";
-        } 
-        else if ( lang === "math" || lang === "latex" || lang === "katex")
+        if ( lang === "math" || lang === "latex" || lang === "katex")
         {
             var m_code = unescape( code);
             m_code = katex.renderToString(m_code,{
@@ -404,7 +357,7 @@ editormd.markedRenderer = function(markdownToC, options) {
               errorColor:"#f00"
             });
             return "<p class=\"" + editormd.classNames.tex + "\">" + m_code + "</p>";
-        } 
+        }
         else if( lang === "video"){
             if( videoReg.test(code)){
               let video_item = code.match(videoReg)
@@ -415,7 +368,17 @@ editormd.markedRenderer = function(markdownToC, options) {
             }
             return "<p>!!!!!video 格式写错 </p>"
         }
-        else 
+        else if(lang !== "" && lang !== undefined){
+          console.log("lang")
+          console.log(lang)
+          let __code =  hljs.highlight(lang,code).value;
+          //code copy
+          let cp_code = btoa(code)
+          let copy_str  =  "<div class=\"code-copy\"><button onclick=\"clipboardCopy('"+cp_code+"')\">复制</button></div>"
+
+          return "<pre class=\"hljs\">"+copy_str+"<code class=\""+lang+" hljs\">\n" +__code +"</code></pre>"
+        }
+        else
         {
 
             var code = marked.Renderer.prototype.code.apply(this, arguments);
@@ -446,7 +409,7 @@ editormd.markedRenderer = function(markdownToC, options) {
 
             res =  "<li style=\"list-style: none;\">" + this.atLink(this.emoji(text)) + "</li>";
         }
-        else 
+        else
         {
             res= "<li>" + this.atLink(this.emoji(text)) + "</li>";
         }
@@ -456,7 +419,7 @@ editormd.markedRenderer = function(markdownToC, options) {
         var isTeXLine       = /^\$\$(.*)\$\$$/.test(res);
 
         //console.log(res)
-        if (!isTeXLine && isTeXInline) 
+        if (!isTeXLine && isTeXInline)
         {
             res = res.replace(/(\$\$([^\$]*)\$\$)+/g, function($1, $2) {
                 var m_code = $2.replace(/\$/g, "");
@@ -467,7 +430,7 @@ editormd.markedRenderer = function(markdownToC, options) {
                   errorColor:"#f00"
                 }) + "</span>";
             });
-        } 
+        }
         else if(isTeXLine){
                 //console.log(text)
                 res = unescape(res.replace(/\$/g, ""))
@@ -482,11 +445,5 @@ editormd.markedRenderer = function(markdownToC, options) {
     return markedRenderer;
 }
 
-_markdown = editormd.init()
 
-function markdown(str){
-  if(str ==='' || str === undefined) return ''
-  else return _markdown(str)
-}
-
-module.exports = markdown
+module.exports = editormd
