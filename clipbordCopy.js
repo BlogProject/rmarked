@@ -39,13 +39,18 @@ function clipboardCopy (text) {
 }
 
 
-module.exports = function(str){
-  let decode = atob(str)
-  let res = clipboardCopy(decode)
-  if(res) alert("复制代码成功!!")
-  else
-    alert("复制代码失败!!")
-}
-
-exports.init = function(){
+module.exports = function(e){
+  let cp_code=e.getAttribute("data-copy");
+  let decode = atob(cp_code)
+  let isSuc = clipboardCopy(decode)
+  if(decode){
+    let p = e.firstElementChild
+    console.log(p.innerHTML)
+    p.innerHTML = "Copied!"
+    setTimeout(function(){ 
+      p.innerHTML = "Copy to clipbord!"
+    },1500)
+  }
+  else{
+  }
 }

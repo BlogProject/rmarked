@@ -374,7 +374,7 @@ editormd.markedRenderer = function(markdownToC, options) {
           let __code =  hljs.highlight(lang,code).value;
           //code copy
           let cp_code = btoa(code)
-          let copy_str  =  "<div class=\"code-copy\"><button onclick=\"clipboardCopy('"+cp_code+"')\">复制</button></div>"
+          let copy_str  =  "<div class=\"code-copy\"><button data-copy=\""+cp_code+"\"onclick=\"clipboardCopy(this)\">复制<p>Copy to clipbord!</p></button></div>"
 
           return "<pre class=\"hljs\">"+copy_str+"<code class=\""+lang+" hljs\">\n" +__code +"</code></pre>"
         }
