@@ -177,7 +177,7 @@ editormd.markedRenderer = function(markdownToC, options) {
               var name = $1
 
               let real_name = name.slice(1)
-              real_name = real_name_name.slice(0,-1)
+              real_name = real_name.slice(0,-1)
 
               let uri = twemoji.parse(name)
 
