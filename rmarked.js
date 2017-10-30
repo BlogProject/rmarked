@@ -103,7 +103,7 @@ editormd.regexs = {
     atLink        : /@(\w+)/g,
     email         : /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
     emailLink     : /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
-    emoji         : /:([\w\+-]+:{0,2}[\w\+-]+):/g,
+    emoji         : /:([\w\+-]+(::){0,1}[\w\+-]+):/g,
     emojiDatetime : /(\d{2}:\d{2}:\d{2})/g,
     fontAwesome   : /:(fa-([\w]+)(-(\w+)){0,}):/g,
     editormdLogo  : /:(editormd-logo-?(\w+)?):/g,
