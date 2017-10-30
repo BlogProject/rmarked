@@ -176,13 +176,13 @@ editormd.markedRenderer = function(markdownToC, options) {
             text = text.replace(new RegExp(matchs[i]), function($1, $2){
               var name = $1
 
-              let _name = name.slice(1)
-              _name = _name.slice(0,-1)
+              let real_name = name.slice(1)
+              real_name = real_name_name.slice(0,-1)
 
               let uri = twemoji.parse(name)
 
               if(uri !== name)
-                return "<img src=\"" + uri + "\" class=\"emoji\" title=\"&#58;" + _name + "&#58;\" alt=\"&#58;" + _name + "&#58;\" />";
+                return "<img src=\"" + uri + "\" class=\"emoji\" title=\"&#58;" + real_name+ "&#58;\" alt=\"&#58;" +  real_name + "&#58;\" />";
             });
         }
 

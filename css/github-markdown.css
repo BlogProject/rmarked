@@ -711,6 +711,7 @@ pre {
 .markdown-body pre {
   position:relative;
   z-index:1;
+  overflow:hidden;
 }
 .markdown-body pre div.code-copy {
   min-height:30px !important;
