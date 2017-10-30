@@ -176,10 +176,10 @@ editormd.markedRenderer = function(markdownToC, options) {
             text = text.replace(new RegExp(matchs[i]), function($1, $2){
               var name = $1
 
-              let real_name = name.slice(1)
+              var real_name = name.slice(1)
               real_name = real_name.slice(0,-1)
 
-              let uri = twemoji.parse(name)
+              var uri = twemoji.parse(name)
 
               if(uri !== name)
                 return "<img src=\"" + uri + "\" class=\"emoji\" title=\"&#58;" + real_name+ "&#58;\" alt=\"&#58;" +  real_name + "&#58;\" />";
@@ -360,21 +360,21 @@ editormd.markedRenderer = function(markdownToC, options) {
         }
         else if( lang === "video"){
             if( videoReg.test(code)){
-              let video_item = code.match(videoReg)
-              let route = video_item[1];
-              let video_path = video_item[2];
-              let m_code = "route="+route+"&path="+video_path;
+              var video_item = code.match(videoReg)
+              var route = video_item[1];
+              var video_path = video_item[2];
+              var m_code = "route="+route+"&path="+video_path;
             return '<video name="videoElement" width=\"500\" height=\"280\" poster="/images/video.png" autoplay value="'+m_code+'">'+ 'Your browser does not support the video tag.</video>'+ '<br>';
             }
             return "<p>!!!!!video 格式写错 </p>"
         }
         else if(lang !== "" && lang !== undefined){
-          console.log("lang")
-          console.log(lang)
-          let __code =  hljs.highlight(lang,code).value;
+          //console.log("lang")
+          //console.log(lang)
+          var __code =  hljs.highlight(lang,code).value;
           //code copy
-          let cp_code = btoa(code)
-          let copy_str  =  "<div class=\"code-copy\"><button data-copy=\""+cp_code+"\"onclick=\"clipboardCopy(this)\">复制<p>Copy to clipbord!</p></button></div>"
+          var cp_code = btoa(code)
+          var copy_str  =  "<div class=\"code-copy\"><button data-copy=\""+cp_code+"\"onclick=\"clipboardCopy(this)\">复制<p>Copy to clipbord!</p></button></div>"
 
           return "<pre class=\"hljs\">"+copy_str+"<code class=\""+lang+" hljs\">\n" +__code +"</code></pre>"
         }
