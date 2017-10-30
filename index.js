@@ -1,4 +1,5 @@
 var rmarked = require('./rmarked.js')
+var clipboardCopy = require('./clipbordCopy.js')
 
 
 // 设定
@@ -12,9 +13,9 @@ var rmarked = require('./rmarked.js')
  * */
 module.exports = function(options){
 
-
   var _markdown = rmarked.init()
-
+  //初始化
+  window.clipboardCopy = clipboardCopy
   return function(str){
     if(str === "" || str === undefined || str ===null) 
       return ""

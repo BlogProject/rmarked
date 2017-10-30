@@ -1,3 +1,5 @@
+var base64 = require('./base64.js')
+
 function clipboardCopy (text) {
   // A <span> contains the text to copy
   var span = document.createElement('span')
@@ -40,11 +42,11 @@ function clipboardCopy (text) {
 
 
 module.exports = function(e){
-  let cp_code=e.getAttribute("data-copy");
-  let decode = atob(cp_code)
-  let isSuc = clipboardCopy(decode)
+  var cp_code=e.getAttribute("data-copy");
+  var decode = base64.decode(cp_code)
+  var isSuc = clipboardCopy(decode)
   if(decode){
-    let p = e.firstElementChild
+    var p = e.firstElementChild
     console.log(p.innerHTML)
     p.innerHTML = "Copied!"
     setTimeout(function(){ 

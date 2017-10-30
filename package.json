@@ -12,9 +12,11 @@
   "author": "rainboy",
   "license": "MIT",
   "dependencies": {
+    "base-64": "^0.1.0",
     "highlight.js": "^9.12.0",
     "katex": "^0.9.0-alpha1",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "utf8": "^2.1.2"
   },
   "devDependencies": {},
   "repository": {

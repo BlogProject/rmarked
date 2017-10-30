@@ -1,7 +1,19 @@
 var marked  = require('marked')
-var katex = require('katex')
 var twemoji = require("./twemoji.js")
 var hljs = require("highlight.js")
+var base64 = require('./base64.js')
+var renderToString = require("./katex_render.js")
+
+
+function unescape(html) {
+  return String(html)
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, '\'')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/<\/?em>/g,'_')
+}
 
 
 var editormd = {};
@@ -19,21 +31,6 @@ editormd.init = function(markdownToC,options){
     });
     return marked;
 };
-
-function unescape(html) {
-  return String(html)
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, '\'')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/<\/?em>/g,'_')
-}
-
-
-//增加功能 
-window.clipboardCopy = require('./clipbordCopy.js')
-
 
 /* 增加 extend */
 void function(global){
@@ -321,20 +318,15 @@ editormd.markedRenderer = function(markdownToC, options) {
                 //console.log(m_code)
                 m_code = unescape(m_code);
                 return "<span class=\"" + editormd.classNames.tex + "\">" +
-                katex.renderToString(m_code,{
-                  throwOnError:false,
-                  errorColor:"#f00"
-                }) +
+                renderToString(m_code)
+                +
                 "</span>";
             });
         }
         else if(isTeXLine){
                 //console.log(text)
                 text = unescape(text.replace(/\$/g, ""))
-                text = katex.renderToString(text,{
-                  throwOnError:false,
-                  errorColor:"#f00"
-                })
+                text =  renderToString(text)
 
         }
             //text = (isTeXLine) ? text.replace(/\$/g, "") : text;
@@ -351,11 +343,7 @@ editormd.markedRenderer = function(markdownToC, options) {
         if ( lang === "math" || lang === "latex" || lang === "katex")
         {
             var m_code = unescape( code);
-            m_code = katex.renderToString(m_code,{
-              displayMode:true,
-              throwOnError:false,
-              errorColor:"#f00"
-            });
+          m_code = renderToString(m_code);
             return "<p class=\"" + editormd.classNames.tex + "\">" + m_code + "</p>";
         }
         else if( lang === "video"){
@@ -373,7 +361,7 @@ editormd.markedRenderer = function(markdownToC, options) {
           //console.log(lang)
           var __code =  hljs.highlight(lang,code).value;
           //code copy
-          var cp_code = btoa(code)
+          var cp_code = base64.encode(code)
           var copy_str  =  "<div class=\"code-copy\"><button data-copy=\""+cp_code+"\"onclick=\"clipboardCopy(this)\">复制<p>Copy to clipbord!</p></button></div>"
 
           return "<pre class=\"hljs\">"+copy_str+"<code class=\""+lang+" hljs\">\n" +__code +"</code></pre>"
@@ -425,19 +413,15 @@ editormd.markedRenderer = function(markdownToC, options) {
                 var m_code = $2.replace(/\$/g, "");
                 //console.log(m_code)
                 m_code = unescape(m_code);
-                return "<span class=\"" + editormd.classNames.tex + "\">" + katex.renderToString(m_code,{
-                  throwOnError:false,
-                  errorColor:"#f00"
-                }) + "</span>";
+                return "<span class=\"" + editormd.classNames.tex + "\">" + 
+                renderToString(m_code)
+                + "</span>";
             });
         }
         else if(isTeXLine){
                 //console.log(text)
                 res = unescape(res.replace(/\$/g, ""))
-                res = katex.renderToString(res,{
-                  throwOnError:false,
-                  errorColor:"#f00"
-                })
+                res = renderToString(res)
         }
 
         return res;

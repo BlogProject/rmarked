@@ -809,3 +809,12 @@ pre {
 	0% { opacity:0; }
 	100% { opacity:100%; }
 }
+
+
+.markdown-body p.math-error {
+    color:#f00;
+    margin-left:30px;
+    margin-right:30px;
+    padding:2px;
+    border:1px solid #f00;
+}
