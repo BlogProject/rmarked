@@ -12,10 +12,13 @@ var clipboardCopy = require('./clipbordCopy.js')
  * 
  * */
 module.exports = function(options){
+  //初始化
+  if (typeof module !== 'undefined' && module.exports)
+    ;
+  else
+    window.clipboardCopy = clipboardCopy
 
   var _markdown = rmarked.init()
-  //初始化
-  window.clipboardCopy = clipboardCopy
   return function(str){
     if(str === "" || str === undefined || str ===null) 
       return ""

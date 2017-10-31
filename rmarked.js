@@ -342,7 +342,9 @@ editormd.markedRenderer = function(markdownToC, options) {
 
         if ( lang === "math" || lang === "latex" || lang === "katex")
         {
+          //console.log(code)
             var m_code = unescape( code);
+          //console.log(m_code)
           m_code = renderToString(m_code);
             return "<p class=\"" + editormd.classNames.tex + "\">" + m_code + "</p>";
         }
