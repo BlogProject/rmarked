@@ -18,6 +18,19 @@ Vue.prototype.markdown_render = markdown
 
 ```
 
+## 配置
+
+
+opttions
+```
+{
+    katex:true,
+    emoji:true,
+    extImage:true, //对image的增强
+    Imagebase:'' //image基础地址
+}
+
+```
 
 ### Emoji表情的使用
 
@@ -32,3 +45,11 @@ Vue.prototype.markdown_render = markdown
 **emoji-cheatsheet**
 
 https://jollygoodcode.github.io/twemoji/
+
+## image 
+
+
+```
+![text](imagepath=heightxwidth "title")
+![text](./image.jpg=100x100 "myimage")
+```

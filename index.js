@@ -18,7 +18,7 @@ module.exports = function(options){
   else
     window.clipboardCopy = clipboardCopy
 
-  var _markdown = rmarked.init()
+  var _markdown = rmarked.init([],options)
   return function(str){
     if(str === "" || str === undefined || str ===null) 
       return ""

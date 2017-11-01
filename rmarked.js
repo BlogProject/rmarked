@@ -29,6 +29,7 @@ editormd.init = function(markdownToC,options){
         smartLists: true,
         smartypants: false,
     });
+
     return marked;
 };
 
@@ -105,7 +106,8 @@ editormd.regexs = {
     fontAwesome   : /:(fa-([\w]+)(-(\w+)){0,}):/g,
     editormdLogo  : /:(editormd-logo-?(\w+)?):/g,
     pageBreak     : /^\[[=]{8,}\]$/,
-    video         : /\[(\w+)\]\(([\s\S]+)\)/
+    video         : /\[(\w+)\]\(([\s\S]+)\)/,
+    image         :/=([\d]+)[xX]{1}([\d]+)$/
 };
 
 
@@ -137,6 +139,8 @@ editormd.markedRenderer = function(markdownToC, options) {
         tex                  : true,          // TeX(LaTeX), based on KaTeX
         flowChart            : true,          // flowChart.js only support IE9+
         sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
+        image                : false,         // 增强image 能力
+        image_base           : '/'            //地址
     };
 
     var settings = editormd.extend(defaults, options|| {});
@@ -149,6 +153,7 @@ editormd.markedRenderer = function(markdownToC, options) {
     var editormdLogoReg = regexs.editormdLogo;
     var pageBreakReg    = regexs.pageBreak;
     var videoReg        = regexs.video;
+    var imageReg        = regexs.image;
 
     markdownToC         = markdownToC || [];
     var markedRenderer= new marked.Renderer();
@@ -428,7 +433,46 @@ editormd.markedRenderer = function(markdownToC, options) {
 
         return res;
     };
-    return markedRenderer;
+
+    markedRenderer.image = function(href,title,text){
+      if(settings.image){  //开启了
+        var image = '<img src=\"image_path\" alt=\"--alt--\" title=\"--title--\" height width/>'
+        
+        var href_isabsolute = false
+        if(href== '' || href ==null || href==undefined){
+          href=''
+        }
+        else if(href.substr(0,4) == 'http' || href[0] == '/')
+          href_isabsolute = true;
+
+        if(href != '' && href_isabsolute == false){
+          href = settings.image_base + href
+        }
+
+        title = title || ''
+        alt = text || ''
+
+        var height = ''
+        var width  = ''
+        var href_match = href.match(imageReg)
+        if( href != '' && href_match){
+           href=href.replace(imageReg,'')
+          height = "height="+href_match[1]
+          width  = "width="+href_match[2]
+        }
+
+         image =image.replace('height',height)
+                    .replace('width',width)
+                    .replace('--alt--',alt)
+                    .replace('--title--',title)
+                    .replace('image_path',href)
+
+
+        return image
+      }
+      return marked.Renderer.prototype.image.apply(this, arguments);
+    }
+  return markedRenderer
 }
 
 
