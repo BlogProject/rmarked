@@ -450,7 +450,7 @@ editormd.markedRenderer = function(markdownToC, options) {
         }
 
         title = title || ''
-        alt = text || ''
+        var alt = text || ''
 
         var height = ''
         var width  = ''
