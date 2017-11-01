@@ -8,6 +8,6 @@ module.exports = function(str){
     })
   }
   catch(e){
-    return "<p class=\"math-error\">"+e.name+"</p>"
+    return "<p class=\"math-error\">"+e.name+":"+str+"</p>"
   }
 }
