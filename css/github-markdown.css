@@ -226,10 +226,6 @@ pre {
   text-decoration: underline;
 }
 
-.markdown-body strong {
-  font-weight: 600;
-}
-
 .markdown-body hr {
   height: 0;
   margin: 15px 0;
