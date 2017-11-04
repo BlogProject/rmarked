@@ -13,9 +13,8 @@ var clipboardCopy = require('./clipbordCopy.js')
  * */
 module.exports = function(options){
   //初始化
-  if (typeof module !== 'undefined' && module.exports)
-    ;
-  else
+
+  if(options && options.clipbordCopy)
     window.clipboardCopy = clipboardCopy
 
   var _markdown = rmarked.init([],options)

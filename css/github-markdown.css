@@ -316,6 +316,10 @@ pre {
   margin-bottom: 0;
 }
 
+.markdown-body ul li {
+  list-style-type: square;
+}
+
 .markdown-body ol ol,
 .markdown-body ul ol {
   list-style-type: lower-roman;
