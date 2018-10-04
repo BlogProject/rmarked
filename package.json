@@ -1,30 +1,44 @@
 {
   "name": "rmarked",
-  "version": "1.0.0",
-  "description": "拓展marked给我自己用",
+  "version": "2.0.0",
+  "description": "markdown parser",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlogProject/rmarked.git"
   },
   "keywords": [
     "markdown"
   ],
   "author": "rainboy",
-  "license": "MIT",
-  "dependencies": {
-    "base-64": "^0.1.0",
-    "highlight.js": "^9.12.0",
-    "katex": "^0.9.0-alpha1",
-    "marked": "^0.3.6",
-    "utf8": "^2.1.2"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BlogProject/rmarked.git"
-  },
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/BlogProject/rmarked/issues"
   },
-  "homepage": "https://github.com/BlogProject/rmarked#readme"
+  "homepage": "https://github.com/BlogProject/rmarked#readme",
+  "dependencies": {
+    "@iktakahiro/markdown-it-katex": "^3.0.4",
+    "clipboard-polyfill": "^2.5.4",
+    "highlight.js": "^9.12.0",
+    "katex": "^0.10.0-rc.1",
+    "markdown-it": "^8.4.2",
+    "markdown-it-anchor": "^5.0.2",
+    "markdown-it-cjk-breaks": "^1.1.0",
+    "markdown-it-emoji": "^1.4.0",
+    "markdown-it-footnote": "^3.0.1",
+    "markdown-it-imsize": "^2.0.1",
+    "markdown-it-multimd-table": "^3.1.3",
+    "markdown-it-smartarrows": "^1.0.1",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
+    "markdown-it-table-of-contents": "^0.4.3",
+    "markdown-it-task-lists": "^2.1.1",
+    "twemoji": "^11.0.1"
+  }
 }

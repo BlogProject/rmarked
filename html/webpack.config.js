@@ -1,8 +1,18 @@
 var path = require('path')
 var webpack = require('webpack')
+var fs = require("fs")
+
+function read(path){
+    return fs.readFileSync(path,{encoding:"utf-8"})
+}
+
+var markdown = read("../test.md")
 
 module.exports = {
   entry: './src/main.js',
+    node:{
+        fs:'empty'
+    },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -70,3 +80,8 @@ if (process.env.NODE_ENV === 'production') {
     })
   ])
 }
+else
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+        MARKDOWN:JSON.stringify(markdown)
+    })])

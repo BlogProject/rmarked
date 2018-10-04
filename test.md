@@ -1,5 +1,8 @@
 # Editor.md
 
+[[toc]]
+
+
 ![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
 
 ![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) 
@@ -94,10 +97,12 @@ GFM a-tail link @pandao  邮箱地址自动链接 test.test@gmail.com  www@vip.q
     
 预格式化文本：
 
+```
     | First Header  | Second Header |
     | ------------- | ------------- |
     | Content Cell  | Content Cell  |
     | Content Cell  | Content Cell  |
+```
 
 #### JS代码　
 
@@ -368,3 +373,82 @@ Andrew->>China: I am good thanks!
 ```
 
 ### End
+
+
+## cjk_breaks
+
+あおえ
+うい
+aoe
+ui
+
+```
+// returns:
+//
+//<p>あおえうい
+//aoe
+//ui</p>
+```
+
+## smartarrows
+--> →
+<-- ←
+<--> ↔
+==> ⇒
+<== ⇐
+<==> ⇔
+
+## image size
+
+![老子的master.jpg](https://i.loli.net/2018/10/04/5bb5b3c6247b0.jpg)
+
+![老子的master.jpg](https://i.loli.net/2018/10/04/5bb5b3c6247b0.jpg =200x200)
+
+
+
+## katex
+
+$\sqrt{3x-1}+(1+x)^2$
+
+## sub - sup
+
+H~2~O
+
+2^2^+1=5
+
+## markdown-it-multimd-table
+
+First header | Second header
+-------------|---------------
+List:        | More  \
+- over       | data  \
+- several    |       \
+- lines      |
+
+
+
+-----------
+
+
+|             |          Grouping           || 
+First Header  | Second Header | Third Header | 
+------------ | :-----------: | -----------: | 
+Content       |          *Long Cell*        || 
+Content       |   **Cell**    |         Cell | 
+
+New section   |     More      |         Data | 
+And more      | With an escaped '\\|'       || 
+[Prototype table]                              
+
+## footnode 引用
+
+这里是引用1[^引用1]
+这里是引用2[^引用2]
+
+[^引用1]:这里是引用1
+
+    多行1
+
+    多行2
+
+[^引用2]:这里是引用2:~~删除线~~

@@ -4,9 +4,9 @@
 
 }
 
-pre {
-  background-color: #f6f8fa;
-}
+/*pre {*/
+  /*background-color: #f6f8fa;*/
+/*}*/
 
 .markdown-body {
   -ms-text-size-adjust: 100%;
@@ -172,9 +172,6 @@ pre {
   margin: 0.67em 0;
 }
 
-.markdown-body img {
-  border-style: none;
-}
 
 .markdown-body svg:not(:root) {
   overflow: hidden;
@@ -337,11 +334,11 @@ pre {
   font-size: 12px;
 }
 
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
+/*.markdown-body pre {*/
+  /*margin-top: 0;*/
+  /*margin-bottom: 0;*/
+  /*font: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;*/
+/*}*/
 
 .markdown-body .octicon {
   vertical-align: text-bottom;
@@ -596,13 +593,20 @@ pre {
   background-color: #fff;
 }
 
+.markdown-body img:only-child {
+    display:block;
+    margin:0 auto;
+    border-style: none;
+}
+
+
 .markdown-body code {
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  padding: 0.5em;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(27,31,35,0.05);
+  /*background-color: rgba(27,31,35,0.05);*/
   border-radius: 3px;
 }
 
@@ -616,51 +620,7 @@ pre {
   word-wrap: normal;
 }
 
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  /*background: transparent;*/
-  border: 0;
-}
 
-.markdown-body .highlight {
-  margin-bottom: 16px;
-}
-
-.markdown-body .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
-}
-
-.markdown-body .highlight pre,
-.markdown-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  /*background-color: #f6f8fa;*/
-  border-radius: 3px;
-}
-
-.markdown-body pre code {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
-}
-
-.markdown-body pre code::before,
-.markdown-body pre code::after {
-  content: normal;
-}
 
 .markdown-body .full-commit .btn-outline:not(:disabled):hover {
   color: #005cc5;
@@ -708,90 +668,10 @@ pre {
   height:1.5em;
   width:1.5em;
 }
-.markdown-body pre {
-  position:relative;
-  z-index:1;
-  overflow:hidden;
-}
-.markdown-body pre div.code-copy {
-  min-height:30px !important;
-  width:100% !important;
-  margin:0;
-  position:absolute;
-  top:0px;
-  left:0;
-  z-index:2;
-  border:0px !important;
-  background-color:rgba(238,238,238,0.233);
-  padding:5px 20px !important;
-  display:block!important;
-}
-
-.markdown-body pre div.code-copy button {
-  display:float;
-  float:right;
-  background-color:#eee;
-  border-color:#eee;
-  font-weight:300;
-  cursor:pointer;
-  border:none;
-  box-sizing:border-box;
-  border-radius:200px;
-  color:#a51c92;
-}
 
 
-.markdown-body pre div.code-copy button:active {
-  text-shadow:0 1px 0 rgba(255,255,255,0.3);
-  color:#d4d4d4;
-  border-color:#cfcfcf;
-  transition-duration:0s;
-  box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);
-}
 
-.code-copy button:hover p{
-	display:block;
-	transform-origin: 100% 0%;
-	-webkit-animation: fadeIn 0.3s ease-in-out;
-	animation: fadeIn 0.3s ease-in-out;
 
-}
-
-.code-copy button p{
-	display: none;
-	text-align: left;
-	background-color: #1E2021;
-	padding: 20px;
-	/*width: 300px;*/
-	position: absolute;
-	border-radius: 3px;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-	right: -4px;
-	color: #FFF;
-	font-size: 13px;
-	line-height: 1.4;
-	top:30px;
-}
-
-.code-copy button p:before{
-	position: absolute;
-	content: '';
-	width:0;
-	height: 0;
-	border:6px solid transparent;
-	border-bottom-color:#1E2021;
-	right:35px;
-	top:-12px;
-}
-
-.code-copy button p:after{
-	width:100%;
-	height:40px;
-	content:'';
-	position: absolute;
-	top:20px;
-	left:0;
-}
 
 @-webkit-keyframes fadeIn {
 	0% { 
@@ -818,3 +698,82 @@ pre {
     padding:2px;
     border:1px solid #f00;
 }
+
+.markdown-body pre {
+    border:1px solid #ccc;
+    background-color:#eee;
+    border-radius:5px;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    padding-right:0.5em;
+    white-space:pre-wrap;
+    /*word-wrap: break-word;white-space : normal;*/
+}
+
+.hljs-pre { padding-left: 40px; position: relative; }
+.hljs-pre .line { 
+    color:black !important;
+    position: absolute; 
+    left: 0; 
+    width: 30px; 
+    text-align: 
+    right; 
+    display: inline-block;
+}
+
+.pre-clipboard {
+    display:inline-block;
+    text-align:center;
+    border: none;
+    background-color:#eee !important;
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.pre-clipboard::before {
+    font-family:'FontAwesome';
+    transition: color 0.25s, opacity 0.25s;
+    color: rgba(0, 0, 0, 0.07);
+    /*content: "\E14D";*/
+    content:"\f0c5";
+}
+.tooltiptext {
+    /*visibility: visible;*/
+    visibility: hidden;
+    top:-1px;
+    right: 145%; 
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+.tooltiptext-show {
+    visibility:visible;
+    opacity: 1;
+}
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #555;
+}
+
