@@ -1,4 +1,3 @@
-var  clipboard_polyfill  = require("clipboard-polyfill/build/clipboard-polyfill.promise")
 var copy_2_clipboard= function(self){
     let content = (self.getAttribute("data-code"))
     clipboard.writeText(content).then(function(){

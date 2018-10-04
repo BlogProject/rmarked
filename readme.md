@@ -34,8 +34,16 @@
 
 ## 功能使用
 
-引入样式
+###　引入样式
 
+方法1: 在网页引入
+
+```html
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" id="theme-id">
+```
+
+在main.js中引入
 ```
 import "rmarked/css/github-markdown.css"
 import "katex/dist/katex.min.css"
@@ -45,28 +53,15 @@ import "highlight.js/styles/tomorrow-night-blue.css"
 
 //全局使用
 
-var markdown = require("rmarked")({
-  katex:true
-})
+var markdown = require("rmarked").render
 Vue.prototype.markdown_render = markdown
-
 ```
 
 ## 配置
 
+不需要配置
 
-默认opttions 
-```
-{
-    katex:true,
-    emoji:true,
-    image:false, //对image的增强
-    image_base:'/' //image基础地址
-}
-
-```
-
-### Emoji表情的使用
+## Emoji表情的使用
 
 使用**TWEmoji**
 
@@ -107,6 +102,8 @@ cheat_sheat 地址
 
 在网页里引用的不同的`highlight.js`的主题`css`
 
-http://bellido.us/blog/07-06-2014-Adding-LineNumbers-highlight-js.html
-https://github.com/zenorocha/clipboard.js.git
-https://github.com/lgarron/clipboard-polyfill
+## 参考
+
+ - http://bellido.us/blog/07-06-2014-Adding-LineNumbers-highlight-js.html
+ - https://github.com/zenorocha/clipboard.js.git
+ - https://github.com/lgarron/clipboard-polyfill
